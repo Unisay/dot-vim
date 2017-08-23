@@ -13,3 +13,12 @@
 [submodule "pack/mypackages/start/nerdcommenter"]
 	path = pack/mypackages/start/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "pack/mypackages/start/papercolor-theme"]
+	path = pack/mypackages/start/papercolor-theme
+	url = https://github.com/NLKNguyen/papercolor-theme.git
+[submodule "pack/mypackages/start/lightline"]
+	path = pack/mypackages/start/lightline
+	url = https://github.com/itchyny/lightline.vim.git
+[submodule "pack/mypackages/start/vim-unimpaired"]
+	path = pack/mypackages/start/vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git

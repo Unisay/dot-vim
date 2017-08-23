@@ -1,25 +1,16 @@
 syntax on
-colorscheme afterglow
 filetype on
 filetype plugin indent on
-set nocompatible   " Switch off VI compatibility mode
-set nobackup
-set nowritebackup
-set nowb
-set noswapfile
-set ruler
-set number         " show line numbers
-set showmatch      " show matching brackets
-set mat=2          " how many seconds to show matching brackets
-set ai             " Auto indent
-set si             " Smart indent
-set splitright     " To make vsplit put the new buffer on the right of the current buffer
-set splitbelow     " To make split put the new buffer below the current buffer
-set viminfo^=%     " Remember info about open buffers on close
-set colorcolumn=90 " Colored column
-set hlsearch       " Highlight found occurences
 
-" Return to last edit position when opening files (You want this!)
+" Color theme {{{
+set background=light
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ }
+colorscheme PaperColor
+" }}}
+
+" Return to last edit position when opening files {{{
 augroup last_edit
   autocmd!
   autocmd BufReadPost *
@@ -27,14 +18,7 @@ augroup last_edit
        \   exe "normal! g`\"" |
        \ endif
 augroup END
-
-
-" Source the vimrc file after saving it
-augroup sourcing
-  autocmd!
-    autocmd bufwritepost .vimrc source $MYVIMRC
-augroup END
-
+" }}}
 
 " Folding {{{
 set foldmethod=indent
@@ -52,7 +36,7 @@ augroup END
 " }}}
 
 " Commenting {{{
-"
+
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -78,7 +62,8 @@ let g:NERDTrimTrailingWhitespace = 1
 
 autocmd BufWritePre * :%s/\s\+$//e " Remove trailing whitespace on save
 
-" Custom keymappins
+" Custom keymappins {{{
+
 let mapleader = "\<Space>"
 set tm=2000 " Leader key timeout
 
@@ -96,6 +81,15 @@ nmap <leader>sj :rightbelow new<CR>
 
 " Open file prompt with current path
 nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+
+" Edit config in the new tab
+nmap <leader>v :tabnew $MYVIMRC<CR>
+nmap <F4> :source $MYVIMRC<CR>
+
+" Syntastic
+nmap <leader>sc    :call SyntasticCheck()<CR>
+
+" }}}
 
 " psc-ide-vim {{{
 au FileType purescript nmap <buffer> <silent> <leader>t    :<C-U>call PSCIDEtype(PSCIDEgetKeyword(), v:true)<CR>
@@ -209,9 +203,43 @@ if has("gui_running")
     let g:screen_size_by_vim_instance = 1
   endif
 
-  " autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-  " autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
 endif
 
+" }}}
+
+" Syntastic settings {{{
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " }}}
+
+" Generic properties {{{
+set noshowmode     " Lightline already shows mode
+set nocompatible   " Switch off VI compatibility mode
+set nobackup
+set nowritebackup
+set nowb
+set noswapfile
+set ruler
+set nocursorline     " Horizontal line on cursor
+set nocursorcolumn   " Vertical line on cursor
+set number         " show line numbers
+set showmatch      " show matching brackets
+set mat=2          " how many seconds to show matching brackets
+set ai             " Auto indent
+set si             " Smart indent
+set splitright     " To make vsplit put the new buffer on the right of the current buffer
+set splitbelow     " To make split put the new buffer below the current buffer
+set viminfo^=%     " Remember info about open buffers on close
+set colorcolumn=90 " Colored column
+set hlsearch       " Highlight found occurences
+" {{{
