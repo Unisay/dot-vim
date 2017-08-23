@@ -88,7 +88,7 @@ nmap <F4> :source $MYVIMRC<CR>
 
 " Syntastic
 nmap <leader>sc    :call SyntasticCheck()<CR>
-
+nmap <leader>se    :Errors<CR>
 " }}}
 
 " psc-ide-vim {{{
@@ -115,17 +115,20 @@ let purescript_indent_in    = 1
 let purescript_indent_dot   = v:true
 
 " Session management {{{
+function! SessionFilename()
+  return $HOME.'/.vim/session.save'
+endfunction
 
 function! SessionSave()
-  :mksession! ~/.vim/session.vim
+  execute "mksession! ".SessionFilename()
 endfunction
 
 function! SessionLoad()
-  :source ~/.vim/session.vim
+  execute "source ".SessionFilename()
 endfunction
 
-map <F2> :call SessionSave() <cr> " Quick write session with F2
-map <F3> :call SessionLoad() <cr> " And load session with F3
+map <F2> :call SessionSave() <CR> " Quick write session with F2
+map <F3> :call SessionLoad() <CR> " And load session with F3
 
 autocmd VimEnter * call SessionLoad()
 autocmd VimLeavePre * call SessionSave()
@@ -155,7 +158,7 @@ if has("gui_running")
   set guitablabel=%M\ %t
 
   function! ScreenFilename()
-    return $HOME.'/.vim/sizes.vim'
+    return $HOME.'/.vim/sizes.save'
   endfunction
 
   function! ScreenRestore()
@@ -242,4 +245,5 @@ set splitbelow     " To make split put the new buffer below the current buffer
 set viminfo^=%     " Remember info about open buffers on close
 set colorcolumn=90 " Colored column
 set hlsearch       " Highlight found occurences
+set noautochdir    " Do not change directory automatically
 " {{{
