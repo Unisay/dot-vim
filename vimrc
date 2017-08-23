@@ -2,20 +2,22 @@ syntax on
 colorscheme afterglow
 filetype on
 filetype plugin indent on
+set nocompatible   " Switch off VI compatibility mode
 set nobackup
 set nowritebackup
 set nowb
 set noswapfile
 set ruler
-set number       " show line numbers
-set showmatch    " show matching brackets
-set mat=2        " how many seconds to show matching brackets
-set ai           " Auto indent
-set si           " Smart indent
-set splitright   " To make vsplit put the new buffer on the right of the current buffer
-set splitbelow   " To make split put the new buffer below the current buffer
-set viminfo^=%   " Remember info about open buffers on close
-
+set number         " show line numbers
+set showmatch      " show matching brackets
+set mat=2          " how many seconds to show matching brackets
+set ai             " Auto indent
+set si             " Smart indent
+set splitright     " To make vsplit put the new buffer on the right of the current buffer
+set splitbelow     " To make split put the new buffer below the current buffer
+set viminfo^=%     " Remember info about open buffers on close
+set colorcolumn=90 " Colored column
+set hlsearch       " Highlight found occurences
 
 " Return to last edit position when opening files (You want this!)
 augroup last_edit
@@ -49,12 +51,42 @@ augroup END
 
 " }}}
 
+" Commenting {{{
+"
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" }}}
+
+autocmd BufWritePre * :%s/\s\+$//e " Remove trailing whitespace on save
+
 " Custom keymappins
 let mapleader = "\<Space>"
 set tm=2000 " Leader key timeout
 
 nmap <leader>qq :wqa<CR>
 nmap <leader>w :w<CR>
+
+" Cancel a search with Escape
+nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 
 " Open window splits in various places
 nmap <leader>sh :leftabove  vnew<CR>
@@ -177,8 +209,8 @@ if has("gui_running")
     let g:screen_size_by_vim_instance = 1
   endif
 
-  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+  " autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+  " autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
 endif
 
 

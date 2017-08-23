@@ -10,3 +10,6 @@
 [submodule "pack/mypackages/start/purescript-vim"]
 	path = pack/mypackages/start/purescript-vim
 	url = https://github.com/purescript-contrib/purescript-vim.git
+[submodule "pack/mypackages/start/nerdcommenter"]
+	path = pack/mypackages/start/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
